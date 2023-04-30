@@ -11,5 +11,6 @@ class Faculty(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
     department = models.IntegerField(default=None,choices=deptChoices.choices)
     facultyId = models.IntegerField(default=None,unique=True)
+    batch = models.CharField(max_length=2,default=None)
 
 
