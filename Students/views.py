@@ -11,8 +11,6 @@ from rest_framework.response import Response
 class StudentCreateAPIView(generics.CreateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    authentication_classes = [authentication.SessionAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         print(serializer.validated_data)
@@ -22,10 +20,12 @@ class StudentCreateAPIView(generics.CreateAPIView):
 class StudentListAPIView(generics.ListAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class StudentListBatchAPIView(generics.ListAPIView):
     serializer_class = StudentSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         batch = self.kwargs['batch']
@@ -34,6 +34,7 @@ class StudentListBatchAPIView(generics.ListAPIView):
 
 
 class StudentDetailAPIView(generics.RetrieveAPIView):
+
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     lookup_field = 'rollNo'
@@ -43,8 +44,6 @@ class StudentDestroyAPIView(generics.DestroyAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     lookup_field = 'rollNo'
-    authentication_classes = [authentication.SessionAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
 
     def perform_destroy(self, instance):
         super().perform_destroy(instance)
@@ -54,7 +53,6 @@ class StudentUpdateAPIView(generics.UpdateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     lookup_field = 'rollNo'
-    authentication_classes = [authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_update(self, serializer):
@@ -66,7 +64,6 @@ class StudentUpdateAPIView(generics.UpdateAPIView):
 class StudentInformationCreateAPIView(generics.CreateAPIView):
     queryset = StudentInformation.objects.all()
     serializer_class = StudentInformationSerializer
-    authentication_classes = [authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
@@ -76,13 +73,11 @@ class StudentInformationCreateAPIView(generics.CreateAPIView):
 class StudentInformationListAPIView(generics.ListAPIView):
     queryset = StudentInformation.objects.all()
     serializer_class = StudentInformationSerializer
-    authentication_classes = [authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
 
 class StudentInformationListBatchAPIView(generics.ListAPIView):
     serializer_class = StudentInformationSerializer
-    authentication_classes = [authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
@@ -95,7 +90,6 @@ class StudentInformationDetailAPIView(generics.RetrieveAPIView):
     queryset = StudentInformation.objects.all()
     serializer_class = StudentInformationSerializer
     lookup_field = 'student__rollNo'
-    authentication_classes = [authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
 
@@ -103,7 +97,6 @@ class StudentInformationUpdateAPIView(generics.UpdateAPIView):
     queryset = StudentInformation.objects.all()
     serializer_class = StudentInformationSerializer
     lookup_field = 'student__rollNo'
-    authentication_classes = [authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_update(self, serializer):
@@ -114,7 +107,6 @@ class StudentInformationDestroyAPIView(generics.DestroyAPIView):
     queryset = StudentInformation.objects.all()
     serializer_class = StudentInformationSerializer
     lookup_field = 'student__rollNo'
-    authentication_classes = [authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_destroy(self, instance):
